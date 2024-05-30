@@ -1,0 +1,18 @@
+.main {
+  position: relative;
+  padding: 20px;
+  background-color: #dedede;
+  min-height: 100vh; /* Ensure main covers full viewport height */
+  width: 100%;
+}
+.body {
+  padding-bottom: 60px; /* Add padding to avoid content overlap with footer */
+}
+.footer {
+  position: absolute;
+  z-index: 10;
+  
+  bottom: 20px;
+  left: 14px; /* Align with main's padding */
+}
+ 

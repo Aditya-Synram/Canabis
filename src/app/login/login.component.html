@@ -1,0 +1,150 @@
+
+<div class="main">
+  <div class="full_header">
+    <!-- <app-front-header></app-front-header> -->
+  </div>
+  <div class="loginpage">
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8 col-sm-12">
+          <div class="logo">
+            <div class="willkommen">
+              <h1>WILLKOMMEN ZUR</h1>
+              <img src="assets/images/iStaff.svg" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <div class="form_middle">
+            <div class="login_content">
+              <img src="assets/images/icon1.svg" class="logo_form" />
+              <ng-container *ngIf="!forgotPasswordFormShow">
+                <h2>Anmelden mit Ihrer iStaff ID</h2>
+                <div class="w-100 m-auto">
+                  <form action="" [formGroup]="loginForm" (ngSubmit)="login()">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="error_section"
+                          *ngIf="(loginError && !forgotPasswordFormShow) || registration_link_sent || captchaError">
+                          <div *ngIf="loginError && !forgotPasswordFormShow" class="error_box_danger">
+                            <i class="fa fa-warning"></i>
+                            {{ error }}
+                          </div>
+
+                          <div *ngIf="registration_link_sent" class="error_box_success">
+                            <i class="fa fa-check-circle"></i>
+                            Verifizierungs E-Mail versandt.
+                          </div>
+
+                          <div *ngIf="captchaError" class="error_box_danger">
+                            <i class="fa fa-warning"></i>
+                            <strong>reCaptcha validieren</strong>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <mat-form-field appearance="outline" class="site-login">
+                          <mat-label>E-Mail</mat-label>
+                          <input matInput type="email" placeholder="E-Mail" formControlName="username"
+                            autocomplete="off">
+                          <div *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors">
+                            <mat-error *ngIf="loginForm.controls.username.errors.email">
+                              Geben Sie eine gültige E-Mail ein
+                            </mat-error>
+                            <mat-error *ngIf="loginForm.controls.username.errors.required">
+                              E-Mail ist <strong>erforderlich</strong>
+                            </mat-error>
+                          </div>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-sm-12">
+                        <mat-form-field appearance="outline" class="site-login">
+                          <mat-label> Passwort</mat-label>
+                          <input matInput placeholder="Passwort" [type]="showPassword?'text':'password'"
+                            formControlName="password" class="outline-section" autocomplete="off">
+                          <mat-icon matSuffix class="pt-0">
+                            <img class="w-50" src="assets/images/open.svg" alt="" *ngIf="showPassword"
+                              (click)="showPassword=false">
+                            <img class="w-50" src="assets/images/closed.svg" alt="" *ngIf="!showPassword"
+                              (click)="showPassword=true">
+                          </mat-icon>
+                          <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors">
+                            <mat-error *ngIf="loginForm.controls.password.errors.required">
+                              Passwort ist <strong>erforderlich</strong>
+                            </mat-error>
+                          </div>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-sm-12">
+                        <button type="submit" class="button_primary links1 text-white btn btn-block w-100"
+                          [disabled]="!loginForm.valid">Login</button>
+
+                        <button type="submit" class="button_primary links1 text-white btn btn-block w-100 mt-2"
+                          *ngIf="forgotLink" (click)="forgotPassword()">
+                          Passwort vergessen?
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </ng-container>
+              <div class="login-form p-4 pt-0 text-center mb-5 forgotEmailForm" *ngIf="forgotPasswordFormShow">
+                <p class="form-title">Geben Sie Ihre registrierte E-Mail-Adresse ein</p>
+                <form [formGroup]="forgotPasswordForm" (ngSubmit)="next()">
+                  <mat-card-content fxLayout="column">
+                    <!-- <div *ngIf="loginError && !loginSuccess && data?.status != 400" class="error_box_danger">
+                      <i class="fa fa-warning"></i>
+                      Ihr Zugang ist temporär nicht erreichbar. Bitte wenden Sie sich an einen Administrator.
+                    </div> -->
+                    <div *ngIf="loginError">
+                      <div *ngIf="data.status == 400" class="error_box_danger">
+                        <i class="fa fa-warning"></i>
+                        {{ data.msg }}
+                      </div>
+                    </div>
+                    <div *ngIf="loginSuccess && !loginError" style="color: green">
+                      <div *ngIf="data.status == 200" class="error_box_danger"
+                        style="background: linear-gradient(90.39deg, #56acea -7.72%, #c00ef8 107.44%);">
+                        <i class="fa fa-check-circle"></i>
+                        {{ data.msg }}
+                      </div>
+                    </div>
+                    <mat-form-field appearance="outline" class="w-100 forgotEmail">
+                      <mat-label>E-Mail</mat-label>
+                      <input type="email" matInput placeholder="E-Mail" formControlName="username" />
+                      <div
+                        *ngIf="forgotPasswordForm.controls.username.touched && forgotPasswordForm.controls.username.errors">
+                        <mat-error *ngIf="forgotPasswordForm.controls.username.errors.email">
+                          Geben Sie eine gültige E-Mail ein
+                        </mat-error>
+                        <mat-error *ngIf="forgotPasswordForm.controls.username.errors.required">
+                          E-Mail ist <strong>erforderlich</strong>
+                        </mat-error>
+                      </div>
+                    </mat-form-field>
+                  </mat-card-content>
+                  <div class="row">
+                    <div class="col" style="padding-right: 7px;">
+                      <a style="text-decoration: none;" mat-raised-button color="primary"
+                        class="button_primary links1 text-white btn btn-block w-100" (click)='backToForgotPassword()'>
+                        Zurück
+                      </a>
+                    </div>
+                    <div class="col" style="padding-left:7px;">
+                      <button type="submit" mat-raised-button color="primary"
+                        class="button_primary links1 text-white btn btn-block w-100">
+                        Senden
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <app-front-footer></app-front-footer> -->
+</div>

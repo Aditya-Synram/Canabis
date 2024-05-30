@@ -1,0 +1,51 @@
+
+   .example-container {
+  position: absolute;
+  top: 15px;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
+  background: #dedede;
+  border-radius: 8px;
+  height: 85vh;
+  
+  
+}
+
+
+.sideNav{
+  border-radius: 8px;
+  /* background: rgb(0,167,81);
+background: linear-gradient(0deg, rgb(2, 110, 54) 0%, rgb(75, 244, 140) 54%, rgb(172, 252, 221) 100%); */
+}
+
+
+.images{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  gap: 5px;
+
+}
+.img1{
+  width: 50px;
+}
+.img2{
+  width: 150px;
+  margin-top: 10px;
+}
+
+.rightSide{
+  padding-left:15px;
+  display: flex ;
+  flex-direction: column;
+  gap: 15px;
+}
+.body{
+  height: 72vh;
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  padding: 10px;
+}
